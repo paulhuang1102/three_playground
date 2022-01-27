@@ -1,4 +1,4 @@
-let camera, scene, renderer, cube, cube1;
+let camera, scene, renderer;
 let raycaster;
 let mouse = new THREE.Vector2(), INTERSECTED = null;
 const objects = [];
@@ -13,19 +13,6 @@ function init() {
 	camera.position.z = 20;
 
 	scene = new THREE.Scene();
-
-	const geometry = new THREE.BoxBufferGeometry( 3, 3, 3 );
-	const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-	cube = new THREE.Mesh( geometry, material );
-	cube.position.y = 5;
-
-	scene.add( cube );
-
-	const geometry1 = new THREE.BoxBufferGeometry( 3, 3, 3 );
-	const material1 = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-	cube1 = new THREE.Mesh( geometry1, material1 );
-
-	scene.add( cube1 );
 
 	raycaster = new THREE.Raycaster();
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -46,10 +33,6 @@ function onMouseMove( event ) {
 
 	//included in mousemove
 
-	objects.push( cube );
-	objects.push( cube1 );
-
-
 	var intersects = raycaster.intersectObjects( objects, true );
 
 
@@ -62,7 +45,6 @@ function onMouseMove( event ) {
 			INTERSECTED = object;
 			// gsap.to( INTERSECTED.scale, { duration: .7, x: 1.2, y: 1.2 } );
 			
-
 		}
 
 	} else {
