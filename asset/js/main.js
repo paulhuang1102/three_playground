@@ -35,8 +35,8 @@ async function init() {
   // setUpCube();
 
 
-  // setUpHugo();
-  // setUpScene();
+  setUpHugo();
+  setUpScene();
 
   const light = ambientLight(0x404040);
   scene.add(light);

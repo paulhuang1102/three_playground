@@ -1,6 +1,18 @@
 function loadTextureFile(path) {
-  const texture = new THREE.TextureLoader().load(path);
-  return texture;
+  const textureLoader = new THREE.TextureLoader();
+
+  return new Promise((resolve, reject) => {
+    textureLoader.load(
+      path,
+      (texture) => {
+        resolve(texture);
+      },
+      (error) => {
+        reject(error);
+      }
+    );
+  })
+
 }
 
 function loadFBXFile(path) {
@@ -21,11 +33,11 @@ function loadFBXFile(path) {
         //     }
         // })
         object.scale.set(.006, .006, .006)
-        
+
         // scene.add(object)
 
         resovle(object);
-  
+
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
@@ -52,9 +64,9 @@ function loadGLTFFile(path) {
       function (gltf) {
         // gltf.setSize(100, 100)
         console.log(gltf)
-  
+
         // scene.add(gltf.scene);
-  
+
         gltf.animations; // Array<THREE.AnimationClip>
         gltf.scene; // THREE.Group
         gltf.scenes; // Array<THREE.Group>
@@ -62,17 +74,17 @@ function loadGLTFFile(path) {
         gltf.asset; // Object
 
         resolve(gltf)
-        
+
       },
       // called while loading is progressing
       (xhr) => {
-  
+
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-  
+
       },
       // called when loading has errors
       (error) => {
-  
+
         console.log('An error happened');
         reject(error);
       }
@@ -112,7 +124,7 @@ function loadOBJFile(path, materials) {
         // var mesh = new THREE.Mesh(smooth, new THREE.MeshPhongMaterial({ color: 0x222222 }));
         // scene.add(mesh);
         // resovle(mesh);
-        
+
         resovle(object);
       },
       // called when loading is in progresses
@@ -155,4 +167,24 @@ function loadMTLFile(path) {
     )
   })
 
+}
+
+function loadFontFile(path) {
+  const loader = new THREE.FontLoader();
+
+  return new Promise((resovle, reject) => {
+    loader.load(path,
+
+      (font) => {
+        resovle(font);
+      },
+      (xhr) => {
+        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+      },
+      (error) => {
+        console.error(error);
+        reject(error);
+      })
+
+  })
 }
